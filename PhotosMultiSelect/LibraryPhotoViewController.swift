@@ -37,7 +37,6 @@ class LibraryPhotoViewController: UIViewController {
     let imageManager = PHCachingImageManager()
     
     var items: [UIImage] = []
-    var highQualityItems: [UIImage] = []
 
     let cellSide = (UIScreen.main.bounds.size.width - 1.5) / 3
 
@@ -225,32 +224,22 @@ class LibraryPhotoViewController: UIViewController {
             let asset = assets.object(at: index)
             let options = PHImageRequestOptions()
             options.deliveryMode = .highQualityFormat
-
-            imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
-                if image == nil {
-                    print("managerError")
-                } else {
-                    self.items.append(image! as UIImage)
-                }
-            })
             imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: options, resultHandler: { image, _ in
                 if image == nil {
                     print("managerError")
                 } else {
-                    self.highQualityItems.append(image! as UIImage)
-                    if(self.highQualityItems.count == indexPaths.count){
-                        self.mainView.items = self.highQualityItems
-                        self.mainView.photoCollectionView.reloadData()
+                    DispatchQueue.main.async {
+                        self.items.append(image! as UIImage)
+                        if(self.items.count == indexPaths.count){
+                            self.mainView.items = self.items
+                            self.mainView.photoCollectionView.reloadData()
+                            self.dismiss(animated: true, completion: nil)
+                        }
                     }
                 }
             })
         }
         
-        mainView.items = self.items
-        
-        mainView.photoCollectionView.reloadData()
-        
-        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: generateDuration
