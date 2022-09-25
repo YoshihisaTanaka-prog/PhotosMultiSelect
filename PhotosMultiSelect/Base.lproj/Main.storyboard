@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BWP-xi-0Wa">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -17,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="htX-gd-Ims">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="htX-gd-Ims">
                                 <rect key="frame" x="0.0" y="91" width="390" height="719"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="haR-8a-EXI">
                                     <size key="itemSize" width="128" height="128"/>
@@ -41,6 +41,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="htX-gd-Ims" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="f8O-nT-agL"/>
+                            <constraint firstItem="htX-gd-Ims" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hYg-Sl-wtI"/>
+                            <constraint firstItem="htX-gd-Ims" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="lFQ-B5-Htx"/>
+                            <constraint firstItem="htX-gd-Ims" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="yRP-EE-P2b"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="メイン" id="bg6-L6-RLi">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="KY6-QQ-2NY">

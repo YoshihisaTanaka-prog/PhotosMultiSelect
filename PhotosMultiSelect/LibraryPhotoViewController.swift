@@ -218,22 +218,35 @@ class LibraryPhotoViewController: UIViewController {
 
         indexPaths.sort { $0 < $1 }
 
-        for indexPath in indexPaths {
+        var checkList = [Bool]()
 
+        for i in 0..<indexPaths.count {
+            let indexPath = indexPaths[i]
             let index = cells[indexPath.section][indexPath.item].index
             let asset = assets.object(at: index)
+            checkList.append(false)
+            self.items.append(UIImage())
             
             imageManager.requestImageDataAndOrientation(for: asset, options: nil, resultHandler: { data, _, _, _ in
                 if data == nil {
                     print("managerError")
                 } else {
-                    DispatchQueue.main.async {
-                        if let image = UIImage(data: data!){
-                            self.items.append(image)
-                            if(self.items.count == indexPaths.count){
-                                self.mainView.items = self.items
-                                self.mainView.photoCollectionView.reloadData()
-                                self.dismiss(animated: true, completion: nil)
+                    if let image = UIImage(data: data!){
+                        self.items[i] = image
+                        checkList[i] = true
+                        if(checkList.count == indexPaths.count){
+                            var check = true
+                            for checkElement in checkList{
+                                if(!checkElement){
+                                    check = false
+                                }
+                            }
+                            if(check){
+                                DispatchQueue.main.async {
+                                    self.mainView.items = self.items
+                                    self.mainView.photoCollectionView.reloadData()
+                                    self.dismiss(animated: true, completion: nil)
+                                }
                             }
                         }
                     }
