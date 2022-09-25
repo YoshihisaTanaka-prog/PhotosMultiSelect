@@ -222,18 +222,19 @@ class LibraryPhotoViewController: UIViewController {
 
             let index = cells[indexPath.section][indexPath.item].index
             let asset = assets.object(at: index)
-            let options = PHImageRequestOptions()
-            options.deliveryMode = .highQualityFormat
-            imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: options, resultHandler: { image, _ in
-                if image == nil {
+            
+            imageManager.requestImageDataAndOrientation(for: asset, options: nil, resultHandler: { data, _, _, _ in
+                if data == nil {
                     print("managerError")
                 } else {
                     DispatchQueue.main.async {
-                        self.items.append(image! as UIImage)
-                        if(self.items.count == indexPaths.count){
-                            self.mainView.items = self.items
-                            self.mainView.photoCollectionView.reloadData()
-                            self.dismiss(animated: true, completion: nil)
+                        if let image = UIImage(data: data!){
+                            self.items.append(image)
+                            if(self.items.count == indexPaths.count){
+                                self.mainView.items = self.items
+                                self.mainView.photoCollectionView.reloadData()
+                                self.dismiss(animated: true, completion: nil)
+                            }
                         }
                     }
                 }
